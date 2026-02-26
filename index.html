@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Parking Lot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Smart Parking Lot System</h1>
+
+    <div class="nav">
+        <a href="/add">Add Slot</a>
+        <a href="/park">Park Vehicle</a>
+    </div>
+
+    <h2>Parking Slots</h2>
+
+    <table>
+        <tr>
+            <th>Slot No</th>
+            <th>Covered</th>
+            <th>EV Charging</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        {% for slot in slots %}
+        <tr>
+            <td>{{ slot.slotNo }}</td>
+
+            <td>
+                {% if slot.isCovered %}
+                    Yes
+                {% else %}
+                    No
+                {% endif %}
+            </td>
+
+            <td>
+                {% if slot.isEVCharging %}
+                    Yes
+                {% else %}
+                    No
+                {% endif %}
+            </td>
+
+            <td>
+                {% if slot.isOccupied %}
+                    Occupied
+                {% else %}
+                    Available
+                {% endif %}
+            </td>
+
+            <td>
+                {% if slot.isOccupied %}
+                    <a class="remove-btn" href="/remove/{{slot.slotNo}}">
+                        Remove Vehicle
+                    </a>
+                {% else %}
+                    —
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+</body>
+</html>
